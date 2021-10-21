@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViews() {
-        val navHostFragment: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val  navController: NavController = navHostFragment.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment?
+        val  navController: NavController = navHostFragment!!.navController
         NavigationUI.setupWithNavController(binding.navigation, navController)
     }
 
