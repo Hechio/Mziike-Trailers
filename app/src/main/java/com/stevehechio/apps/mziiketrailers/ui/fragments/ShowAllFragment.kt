@@ -30,13 +30,10 @@ class ShowAllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
-        moviesEntityList = arguments?.get(MOVIES_ENTITIES) as List<MoviesEntity>? ?: return
     }
 
     private fun setUpViews() {
-        //this is just for testing navigation
-        binding.tvTest.setOnClickListener { onDetailsFragment() }
-        binding.tvTest2.setOnClickListener { onShowHomeMoviesFragment()}
+        moviesEntityList = arguments?.get(MOVIES_ENTITIES) as List<MoviesEntity>? ?: return
     }
 
     private fun onShowHomeMoviesFragment(){

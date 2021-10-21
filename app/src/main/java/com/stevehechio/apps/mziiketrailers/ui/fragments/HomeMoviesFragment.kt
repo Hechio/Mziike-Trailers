@@ -32,9 +32,7 @@ class HomeMoviesFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        //These is used to test the navigation between fragments
-        binding.tvTest.setOnClickListener { onShowAllInCategoryFragment() }
-        binding.tvTest2.setOnClickListener { onDetailsFragment() }
+
     }
 
 
