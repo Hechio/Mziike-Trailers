@@ -28,14 +28,12 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
-        moviesEntity = arguments?.get(MOVIE_ENTITY) as MoviesEntity? ?: return
-        originFrag = arguments?.get(ORIGIN_FRAG) as String? ?: ""
+       setUpViews()
     }
 
     private fun setUpViews() {
-        //this is just for testing navigation
-        binding.tvTest.setOnClickListener { onChangeFragment() }
+        moviesEntity = arguments?.get(MOVIE_ENTITY) as MoviesEntity? ?: return
+        originFrag = arguments?.get(ORIGIN_FRAG) as String? ?: ""
     }
 
 

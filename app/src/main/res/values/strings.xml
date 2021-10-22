@@ -8,4 +8,9 @@
     <string name="details_fragment">Details Fragment</string>
     <string name="home_fragment">Movies</string>
     <string name="all_cat_fragment">All Shows in category</string>
+    <string name="see_all">See All</string>
+    <string name="back">Back</string>
+    <string name="watch_now">WATCH NOW</string>
+    <string name="cast">Cast</string>
+    <string name="add_to_favorites">Add to favorites</string>
 </resources>
