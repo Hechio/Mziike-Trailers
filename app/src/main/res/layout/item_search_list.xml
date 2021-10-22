@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    app:cardCornerRadius="@dimen/padding_10"
+    android:layout_marginHorizontal="@dimen/margin_15"
+    android:layout_marginTop="@dimen/padding_10">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pink_gradient_background">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_250_movies"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:layout_margin="10dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_15"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:translationZ="90dp">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:fontFamily="@font/sf_prodisplay_heavy"
+                android:textColor="@color/white"
+                android:maxLines="2"
+                tool:text="The man in the Hight castle"/>
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tool:text="2015"
+                android:textSize="@dimen/text_15"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sofia_pro"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_watch_now"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/add_to_favorites"
+                android:fontFamily="@font/sf_prodisplay_heavy"
+                android:textSize="@dimen/text_12"
+                android:paddingHorizontal="@dimen/margin_35"
+                android:layout_marginVertical="@dimen/margin_5"
+                app:layout_constraintTop_toBottomOf="@+id/tv_plot"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/button_yellow_background"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</com.google.android.material.card.MaterialCardView>

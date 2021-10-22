@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MziikeTrailers">
         <activity
+            android:name=".ui.activities.SearchMoviesActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
