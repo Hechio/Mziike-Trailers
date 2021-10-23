@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentTransaction
 import com.stevehechio.apps.mziiketrailers.R
 import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentHolderBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HolderFragment : Fragment() {
     private var _binding: FragmentHolderBinding? = null
     private val binding get() = _binding!!

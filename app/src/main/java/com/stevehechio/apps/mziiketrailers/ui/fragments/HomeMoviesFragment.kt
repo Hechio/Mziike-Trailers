@@ -1,22 +1,28 @@
 package com.stevehechio.apps.mziiketrailers.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentHomeMoviesBinding
+import com.stevehechio.apps.mziiketrailers.ui.viewmodels.MoviesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.reflect.KFunction4
 import kotlin.reflect.KFunction5
 
+@AndroidEntryPoint
 class HomeMoviesFragment : Fragment() {
     private var _binding: FragmentHomeMoviesBinding? = null
     private val binding get() = _binding!!
     private lateinit var fragmentChangeListener:
             KFunction5<@ParameterName(name = "fragID") String, MoviesEntity?,String?,
                     List<MoviesEntity>?, String, Unit>
+    private lateinit var viewModel: MoviesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +38,10 @@ class HomeMoviesFragment : Fragment() {
     }
 
     private fun setUpViews() {
-
+    viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        viewModel.getMoviesLiveData().observe(viewLifecycleOwner, {
+            Log.v("Homefrag", "Success Execution! $it")
+        })
     }
 
 

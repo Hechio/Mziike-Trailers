@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.reflect.KFunction4
 import kotlin.reflect.KFunction5
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
