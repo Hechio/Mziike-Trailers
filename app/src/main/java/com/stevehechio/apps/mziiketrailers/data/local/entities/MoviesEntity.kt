@@ -1,5 +1,6 @@
 package com.stevehechio.apps.mziiketrailers.data.local.entities
 
+import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
@@ -18,19 +19,23 @@ data class MoviesEntity(
 
     @PrimaryKey
     val id: String,
+    @Nullable
     val title: String,
+    @Nullable
     val year: String,
+    @Nullable
     val image: String,
-    val plot: String,
-    val genres: String,
+
+    val plot: String?,
+    val genres: String?,
 
     @TypeConverters(ActorsListTypeConvertor::class)
-    val actorList: List<Actor>,
-    val imDbRating: String,
+    val actorList: List<Actor>?,
+    val imDbRating: String?,
 
     @TypeConverters(TrailerTypeConverter::class)
-    val trailer: Trailer,
-    var category: String
+    val trailer: Trailer?,
+    var category: String?
 
 ): Serializable
 

@@ -12,6 +12,8 @@ import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentHomeMoviesBinding
 import com.stevehechio.apps.mziiketrailers.ui.viewmodels.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlin.reflect.KFunction4
 import kotlin.reflect.KFunction5
 
@@ -38,10 +40,12 @@ class HomeMoviesFragment : Fragment() {
     }
 
     private fun setUpViews() {
-    viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+
         viewModel.getMoviesLiveData().observe(viewLifecycleOwner, {
             Log.v("Homefrag", "Success Execution! $it")
         })
+        viewModel.fetchMovies()
     }
 
 

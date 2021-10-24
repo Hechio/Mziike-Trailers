@@ -10,7 +10,7 @@ import com.stevehechio.apps.mziiketrailers.data.local.entities.Trailer
  */
 object TrailerTypeConverter {
     @TypeConverter
-    fun fromStringToTrailer(value: String?): Trailer {
+    fun fromStringToTrailer(value: String?): Trailer? {
         val listType = object : TypeToken<Trailer?>() {}.type
         return Gson().fromJson(value, listType)
     }

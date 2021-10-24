@@ -10,7 +10,7 @@ import com.stevehechio.apps.mziiketrailers.data.local.entities.Actor
  */
 object ActorsListTypeConvertor {
     @TypeConverter
-    fun fromStringToActors(value: String?): List<Actor> {
+    fun fromStringToActors(value: String?): List<Actor>? {
         val listType = object : TypeToken<List<Actor>>() {}.type
         return Gson().fromJson(value, listType)
     }

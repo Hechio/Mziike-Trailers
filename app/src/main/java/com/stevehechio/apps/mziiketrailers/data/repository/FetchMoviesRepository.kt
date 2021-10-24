@@ -29,32 +29,33 @@ class FetchMoviesRepository @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
     val result = MutableLiveData<Resource<List<MoviesEntity>>>()
 
-    fun fetchMovies(){
-        if (NetworkUtil.isNetworkAvailable(application)){
+    fun fetchMovies():  Observable<Resource<List<MoviesEntity>>>{
+        return if (NetworkUtil.isNetworkAvailable(application)){
             getRemoteMovies(AppConstants.API_KEY)
         }else {
             getLocalData()
         }
     }
 
-    private fun getRemoteMovies(apiKey: String) {
+    private fun getRemoteMovies(apiKey: String): Observable<Resource<List<MoviesEntity>>> {
+        return Observable.create <Resource<List<MoviesEntity>>>(){emiter ->
+            emiter.onNext(Resource.Loading())
 
         val disposable = Observable.zip(
-            movieApiService.fetch250Movies(apiKey),
-            movieApiService.fetch250TVs(apiKey),
-            movieApiService.fetchMostPopularMovies(apiKey),
-            movieApiService.fetchComingSoonMovies(apiKey),
-            movieApiService.fetchMostPopularTVs(apiKey),
-            movieApiService.fetchInTheaters(apiKey),
+            movieApiService.fetch250Movies(apiKey).subscribeOn(Schedulers.io()),
+            movieApiService.fetch250TVs(apiKey).subscribeOn(Schedulers.io()),
+            movieApiService.fetchMostPopularMovies(apiKey).subscribeOn(Schedulers.io()),
+            movieApiService.fetchComingSoonMovies(apiKey).subscribeOn(Schedulers.io()),
+            movieApiService.fetchMostPopularTVs(apiKey).subscribeOn(Schedulers.io()),
+            movieApiService.fetchInTheaters(apiKey).subscribeOn(Schedulers.io()),
             { top250Movies, top250TVs, topPopularMovies, topComingSoonMovies,topMostPopularMovies, topInTheaterMovies ->
+
                 //movieDao.deleteAll()
                 val list1 = top250Movies.moviesList
                 val n = list1.size
                 for (i in 0 until n) {
                     list1[i].category = "Top 250 Movies"
                 }
-                Log.i("movies res", "Success Execution! $top250Movies")
-                Log.i("movies res", "Success Execution! $list1")
                 movieDao.insertAll(list1)
 
                 val list2 = top250TVs.moviesList
@@ -92,44 +93,34 @@ class FetchMoviesRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .switchMap {
-                movieDao.getAllMovies().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                return@switchMap movieDao.getAllMovies().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             }
-            .doOnSubscribe { }
-            .doOnTerminate { }
             .subscribe({
-                onSuccess(it)
+               emiter.onNext( Resource.Success(it))
                 Log.i("movies res", "Success Execution! $it")
             },{
-                onErrorOcurred(it)
+                emiter.onNext(Resource.Failure(it.toString()))
             })
 
         addDisposable(disposable)
+        }
     }
-    private fun getLocalData(){
-        val disposable = movieDao.getAllMovies()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onStartFetching() }
-            .subscribe({
-                onSuccess(it)
-                Log.i("movies res", "Success Execution! $it")
-            },{
-                onErrorOcurred(it)
-            })
-        addDisposable(disposable)
-    }
-    private fun onErrorOcurred(it: Throwable) {
-        result.postValue(Resource.Failure(it.toString()))
-    }
-
-    private fun onSuccess(response: List<MoviesEntity>?) {
-
-        result.postValue(Resource.Success(response))
+    private fun getLocalData():  Observable<Resource<List<MoviesEntity>>>{
+        return Observable.create <Resource<List<MoviesEntity>>>() { emiter ->
+            emiter.onNext(Resource.Loading())
+            val disposable = movieDao.getAllMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    emiter.onNext( Resource.Success(it))
+                    Log.i("movies res", "Success Execution! $it")
+                }, {
+                    emiter.onNext(Resource.Failure(it.toString()))
+                })
+            addDisposable(disposable)
+        }
     }
 
-    private fun onStartFetching() {
-        result.postValue(Resource.Loading())
-    }
 
     override fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
