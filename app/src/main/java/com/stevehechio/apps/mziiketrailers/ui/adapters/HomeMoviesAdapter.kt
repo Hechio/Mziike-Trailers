@@ -128,7 +128,6 @@ class HomeMoviesAdapter(val context: Context):
                     }
                 })
                 .into(binding.ivComingSoonMovie)
-            binding.ivComingSoonMovie.setOnClickListener { onClickLikedListener?.onItemClicked(moviesEntity.id) }
         }
     }
     inner class OtherMovieCatsHolder(val binding: ItemMoviesListBinding): RecyclerView.ViewHolder(binding.root){
