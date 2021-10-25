@@ -42,3 +42,5 @@ data class MoviesEntity(
 
 data class Actor(val image: String, val name: String): Serializable
 data class Trailer(val thumbnailUrl: String, val link: String, val linkEmbed: String): Serializable
+
+data class MoviesCategory(var name: String, var movieEntityList: List<MoviesEntity>): Serializable

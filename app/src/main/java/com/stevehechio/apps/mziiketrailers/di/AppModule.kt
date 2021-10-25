@@ -9,6 +9,7 @@ import com.stevehechio.apps.mziiketrailers.data.local.dao.MovieDao
 import com.stevehechio.apps.mziiketrailers.data.local.db.AppDatabase
 import com.stevehechio.apps.mziiketrailers.data.remote.api.MovieApiService
 import com.stevehechio.apps.mziiketrailers.data.repository.FetchMoviesRepository
+import com.stevehechio.apps.mziiketrailers.data.repository.GetMovieDetailsByIdRepo
 import com.stevehechio.apps.mziiketrailers.data.repository.SearchRepository
 import com.stevehechio.apps.mziiketrailers.utils.AppConstants
 import dagger.Module
@@ -122,5 +123,12 @@ class AppModule {
     @Provides
     fun provideFetchMoviesRepository(@ApplicationContext context: Context,movieDao: MovieDao,movieService: MovieApiService): FetchMoviesRepository {
         return FetchMoviesRepository(context,movieDao,movieService)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideGetMovieDetailsByIdRepo(@ApplicationContext context: Context,movieDao: MovieDao,movieService: MovieApiService): GetMovieDetailsByIdRepo{
+        return GetMovieDetailsByIdRepo(context, movieDao,movieService)
     }
 }

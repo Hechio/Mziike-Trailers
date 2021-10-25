@@ -1,8 +1,6 @@
-package com.stevehechio.apps.mziiketrailers.ui
+package com.stevehechio.apps.mziiketrailers.ui.adapters
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Movie
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,7 +19,10 @@ import com.stevehechio.apps.mziiketrailers.utils.gone
 /**
  * Created by stevehechio on 10/23/21
  */
-class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, SearchMovieAdapter.MoviesSearchViewHolder>(MoviesDiff) {
+class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, SearchMovieAdapter.MoviesSearchViewHolder>(
+    MoviesDiff
+) {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesSearchViewHolder {
@@ -40,6 +41,8 @@ class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, Search
             val mUrl = movie.image
             Glide.with(context)
                 .load(mUrl)
+                .centerCrop()
+                .dontAnimate()
                 .listener(object : RequestListener<Drawable>{
 
                     override fun onLoadFailed(
@@ -60,7 +63,7 @@ class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, Search
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.pb.gone()
-                        return true
+                        return false
                     }
                 })
                 .into(binding.iv250Movies)

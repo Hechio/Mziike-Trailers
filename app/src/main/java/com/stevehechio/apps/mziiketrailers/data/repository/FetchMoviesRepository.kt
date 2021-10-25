@@ -27,7 +27,6 @@ class FetchMoviesRepository @Inject constructor(
 ) : BaseRepository {
 
     private val compositeDisposable = CompositeDisposable()
-    val result = MutableLiveData<Resource<List<MoviesEntity>>>()
 
     fun fetchMovies():  Observable<Resource<List<MoviesEntity>>>{
         return if (NetworkUtil.isNetworkAvailable(application)){

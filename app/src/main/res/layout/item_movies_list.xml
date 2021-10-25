@@ -37,6 +37,7 @@
                     android:translationZ="90dp">
 
                     <TextView
+                        android:id="@+id/tv_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tool:text="2015"
@@ -44,6 +45,7 @@
                         android:textColor="@color/white"
                         android:fontFamily="@font/sofia_pro"/>
                     <TextView
+                        android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
