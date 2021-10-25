@@ -18,8 +18,7 @@ import org.junit.runner.RunWith
  * Created by stevehechio on 10/25/21
  */
 @RunWith(AndroidJUnit4ClassRunner::class)
-@SmallTest
-abstract class AppDatabaseTest {
+class AppDatabaseTest {
 
     @Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
