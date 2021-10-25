@@ -39,7 +39,7 @@ class HolderFragment : Fragment() {
         when(fragID){
             DetailsFragment.FRAG_ID -> {
                 if (id != null){
-                    onShowDetailsFragment(id)
+                    onShowDetailsFragment(id,moviesCategory,originFragID)
                 }
             }
             ShowAllFragment.FRAG_ID -> {
@@ -61,10 +61,12 @@ class HolderFragment : Fragment() {
         transaction.commitAllowingStateLoss()
     }
 
-    private fun onShowDetailsFragment(id: String?){
+    private fun onShowDetailsFragment(id: String?,moviesCategory: MoviesCategory?,originFragID: String?){
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         val bundle = Bundle()
         bundle.putString(DetailsFragment.MOVIE_ID,id)
+        bundle.putString(DetailsFragment.ORIGIN_FRAG,originFragID)
+        bundle.putSerializable(DetailsFragment.MOVIES_ENTITIES,moviesCategory)
         val detailsFragment = DetailsFragment.newInstance(fragmentChangeListener =  ::onFragmentChanged)
         detailsFragment.arguments = bundle
         transaction.replace(
@@ -72,7 +74,7 @@ class HolderFragment : Fragment() {
             detailsFragment,detailsFragment.tag).commit()
         transaction.addToBackStack(detailsFragment.tag)
     }
-    private fun onShowAllInCategoryFragment(moviesCategory: MoviesCategory){
+    private fun onShowAllInCategoryFragment(moviesCategory: MoviesCategory?){
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         val bundle = Bundle()
         bundle.putSerializable(ShowAllFragment.MOVIES_ENTITIES,moviesCategory)

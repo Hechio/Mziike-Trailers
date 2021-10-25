@@ -1,5 +1,6 @@
 package com.stevehechio.apps.mziiketrailers.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.stevehechio.apps.mziiketrailers.data.Resource
 import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesCategory
 import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentHomeMoviesBinding
+import com.stevehechio.apps.mziiketrailers.ui.activities.SearchMoviesActivity
 import com.stevehechio.apps.mziiketrailers.ui.adapters.CategoryAdapter
 import com.stevehechio.apps.mziiketrailers.ui.viewmodels.MoviesViewModel
 import com.stevehechio.apps.mziiketrailers.utils.gone
@@ -45,6 +47,8 @@ class HomeMoviesFragment : Fragment() {
     }
 
     private fun setUpViews() {
+        binding.ivSearch.setOnClickListener {
+            requireContext().startActivity(Intent(requireContext(),SearchMoviesActivity::class.java)) }
         mAdapter = CategoryAdapter(requireContext())
         binding.rv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -99,7 +103,13 @@ class HomeMoviesFragment : Fragment() {
                         startLoading()
                     }
                 }
+                is Resource.Failure -> {
+                    val error = response.cause
+                    binding.tvError.text = error
+                    stopLoadingWithError()
+                }
                 else -> {
+                    val error = response
                     binding.tvError.text = getString(R.string.something_went_wrong)
                     stopLoadingWithError()
                 }

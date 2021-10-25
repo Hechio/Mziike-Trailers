@@ -12,6 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/padding_10"
         android:queryHint="Search movie/show by title, keyword, name"
         android:iconifiedByDefault="false"/>
 
@@ -30,6 +31,7 @@
         />
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/pb"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

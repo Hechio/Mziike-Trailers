@@ -66,11 +66,11 @@ class ShowAllFragment : Fragment() {
     }
 
     private fun onShowHomeMoviesFragment(){
-        fragmentChangeListener.invoke(HomeMoviesFragment.FRAG_ID,null,null,FRAG_ID)
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun onDetailsFragment(id: String){
-        fragmentChangeListener.invoke(DetailsFragment.FRAG_ID,id,null, HomeMoviesFragment.FRAG_ID)
+        fragmentChangeListener.invoke(DetailsFragment.FRAG_ID,id,moviesCategory, FRAG_ID)
     }
 
     override fun onDestroyView() {

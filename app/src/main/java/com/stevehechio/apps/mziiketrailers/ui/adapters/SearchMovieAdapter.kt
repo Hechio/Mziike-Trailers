@@ -22,7 +22,11 @@ import com.stevehechio.apps.mziiketrailers.utils.gone
 class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, SearchMovieAdapter.MoviesSearchViewHolder>(
     MoviesDiff
 ) {
+var onAddToFavCliked: OnAddToFavCliked? = null
 
+fun setOnAddFavClicked(onAddToFavCliked: OnAddToFavCliked){
+    this.onAddToFavCliked = onAddToFavCliked
+}
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesSearchViewHolder {
@@ -68,7 +72,8 @@ class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, Search
                 })
                 .into(binding.iv250Movies)
             binding.title.text = movie.title
-            binding.tvDesc.text = movie.description
+            binding.tvDesc.text = movie.description.replace("(", "").replace(")", "")
+            binding.btnAddFav.setOnClickListener { onAddToFavCliked?.onAddToFavClicked(movie) }
         }
     }
 
@@ -83,5 +88,7 @@ class SearchMovieAdapter(val context: Context): ListAdapter<MoviesSearch, Search
 
     }
 
-
+interface OnAddToFavCliked{
+    fun onAddToFavClicked(movie: MoviesSearch)
+}
 }

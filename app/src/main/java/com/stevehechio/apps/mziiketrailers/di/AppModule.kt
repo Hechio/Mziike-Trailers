@@ -131,4 +131,6 @@ class AppModule {
     fun provideGetMovieDetailsByIdRepo(@ApplicationContext context: Context,movieDao: MovieDao,movieService: MovieApiService): GetMovieDetailsByIdRepo{
         return GetMovieDetailsByIdRepo(context, movieDao,movieService)
     }
+
+
 }

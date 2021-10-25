@@ -98,7 +98,8 @@ class FetchMoviesRepository @Inject constructor(
                emiter.onNext( Resource.Success(it))
                 Log.i("movies res", "Success Execution! $it")
             },{
-                emiter.onNext(Resource.Failure(it.toString()))
+                emiter.onNext(Resource.Failure(it.localizedMessage))
+                Log.i("movies res", "Success Execution! $it")
             })
 
         addDisposable(disposable)
@@ -114,7 +115,8 @@ class FetchMoviesRepository @Inject constructor(
                     emiter.onNext( Resource.Success(it))
                     Log.i("movies res", "Success Execution! $it")
                 }, {
-                    emiter.onNext(Resource.Failure(it.toString()))
+                    emiter.onNext(Resource.Failure(it.localizedMessage))
+                    Log.i("movies res", "Success Execution! $it")
                 })
             addDisposable(disposable)
         }

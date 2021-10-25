@@ -34,7 +34,7 @@ class SearchRepository @Inject constructor(val movieApiService: MovieApiService)
     }
 
     private fun onErrorOcurred(it: Throwable) {
-        result.value = Resource.Failure(it.toString())
+        result.value = Resource.Failure(it.localizedMessage)
     }
 
     private fun onSuccess(response: List<MoviesSearch>?) {
