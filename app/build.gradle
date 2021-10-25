@@ -25,13 +25,6 @@ android {
         }
     }
 
-    testOptions {
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
-
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
 
     buildFeatures {
         viewBinding true
@@ -85,8 +78,6 @@ dependencies {
 
     //Tests
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
-    testImplementation "org.junit.vintage:junit-vintage-engine:5.7.1"
 
     testImplementation 'org.mockito:mockito-core:3.10.0'
     androidTestImplementation 'org.mockito:mockito-android:3.4.6'
