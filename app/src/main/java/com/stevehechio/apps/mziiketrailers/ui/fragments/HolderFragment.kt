@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.stevehechio.apps.mziiketrailers.R
-import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesEntity
+import com.stevehechio.apps.mziiketrailers.data.local.entities.MoviesCategory
 import com.stevehechio.apps.mziiketrailers.databinding.FragmentHolderBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HolderFragment : Fragment() {
     private var _binding: FragmentHolderBinding? = null
     private val binding get() = _binding!!
@@ -32,17 +34,17 @@ class HolderFragment : Fragment() {
         onShowHomeMoviesFragment()
     }
 
-    private fun onFragmentChanged(fragID: String, moviesEntity: MoviesEntity?,idOrCategory: String?,
-                                  moviesEntities: List<MoviesEntity>?,originFragID: String){
+    private fun onFragmentChanged(fragID: String,id: String?,
+                                  moviesCategory: MoviesCategory?,originFragID: String){
         when(fragID){
             DetailsFragment.FRAG_ID -> {
-                if (moviesEntity != null){
-                    onShowDetailsFragment(moviesEntity,idOrCategory)
+                if (id != null){
+                    onShowDetailsFragment(id,moviesCategory,originFragID)
                 }
             }
             ShowAllFragment.FRAG_ID -> {
-                if (moviesEntities != null || idOrCategory != null){
-                    onShowAllInCategoryFragment(moviesEntities,idOrCategory)
+                if (moviesCategory != null){
+                    onShowAllInCategoryFragment(moviesCategory)
                 }
             }
             else -> onShowHomeMoviesFragment()
@@ -59,10 +61,12 @@ class HolderFragment : Fragment() {
         transaction.commitAllowingStateLoss()
     }
 
-    private fun onShowDetailsFragment(moviesEntity: MoviesEntity, idOrCategory: String?){
+    private fun onShowDetailsFragment(id: String?,moviesCategory: MoviesCategory?,originFragID: String?){
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         val bundle = Bundle()
-        bundle.putSerializable(DetailsFragment.MOVIE_ENTITY,moviesEntity)
+        bundle.putString(DetailsFragment.MOVIE_ID,id)
+        bundle.putString(DetailsFragment.ORIGIN_FRAG,originFragID)
+        bundle.putSerializable(DetailsFragment.MOVIES_ENTITIES,moviesCategory)
         val detailsFragment = DetailsFragment.newInstance(fragmentChangeListener =  ::onFragmentChanged)
         detailsFragment.arguments = bundle
         transaction.replace(
@@ -70,12 +74,16 @@ class HolderFragment : Fragment() {
             detailsFragment,detailsFragment.tag).commit()
         transaction.addToBackStack(detailsFragment.tag)
     }
-    private fun onShowAllInCategoryFragment(moviesEntities: List<MoviesEntity>?, idOrCategory: String?){
+    private fun onShowAllInCategoryFragment(moviesCategory: MoviesCategory?){
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        val bundle = Bundle()
+        bundle.putSerializable(ShowAllFragment.MOVIES_ENTITIES,moviesCategory)
+        val showAllFrag = ShowAllFragment.newInstance(fragmentChangeListener = ::onFragmentChanged)
+        showAllFrag.arguments = bundle
         transaction.replace(
             R.id.nav_host_fragment,
-            ShowAllFragment.newInstance(fragmentChangeListener =  ::onFragmentChanged))
-        transaction.commitAllowingStateLoss()
+            showAllFrag,showAllFrag.tag).commit()
+        transaction.addToBackStack(showAllFrag.tag)
     }
 
 }

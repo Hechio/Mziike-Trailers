@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginStart="@dimen/margin_20"
     android:layout_marginTop="@dimen/padding_10">
 
     <TextView
@@ -16,6 +15,7 @@
         android:fontFamily="@font/sf_prodisplay_heavy"
         android:textStyle="bold"
         android:textSize="@dimen/text_18"
+        android:layout_marginStart="@dimen/margin_20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,6 +42,7 @@
         android:text="@string/see_all"
         android:fontFamily="@font/sf_prodisplay_heavy"
         android:textSize="@dimen/text_15"
+        android:padding="@dimen/margin_5"
         android:textColor="@color/primary_grey"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
