@@ -1,5 +1,6 @@
 # Mziike Trailers
 
+You can change the api key if daily requests are exceeded. i.e 100 requests for the this free plan
 <img src="https://user-images.githubusercontent.com/47601553/138739872-79648822-7ee8-4042-98d1-6ef0449e682b.png" width="500" style="max-width:100%;">
 
 This is take way assigment for Kyosk recruitment process.
